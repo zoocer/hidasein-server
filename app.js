@@ -65,3 +65,5 @@ const port = process.argv[2] || 4141
 app.listen(port, () => {
   console.log('Hidasein server is listenning on port: ', port)
 })
+
+module.exports = app;
