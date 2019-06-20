@@ -1,0 +1,24 @@
+{
+  "apps": [
+      {
+          "name": "hidasein-pub",
+          "script": "./bin/www",
+          "cwd": "./",
+          "env": {
+              "NODE_ENV": "production"
+          },
+          "args": [],
+          "watch": true,
+          "ignore_watch": [
+              "./node_modules",
+              "./doc",
+              "./test",
+              "./logs"
+          ],
+          "instances"  : 2,
+          "exec_mode"  : "cluster",
+          "error_file": "./logs/pm2-err.log",
+          "out_file": "./logs/pm2-out.log"
+      }
+  ]
+}

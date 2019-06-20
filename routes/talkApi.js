@@ -4,6 +4,7 @@ const randomIpv4 = require('random-ipv4')
 const geoip = require('geoip-country')
 const Redis = require('ioredis')
 const moment = require('moment')
+const func = require('../utils/func')
 
 const redis = new Redis(6379)
 
@@ -35,10 +36,9 @@ exports.getTalks = async (req, res, next) => {
 }
 // 创建talk
 exports.createTalk = async (req, res, next) => {
+  const env = func.getEnv();
   try {
-    // let ip = req.clientIp
-    let ip = randomIpv4()
-    // let ip = '127.0.0.3'
+    let ip = env === 'development' ? randomIpv4() : req.clientIp
     let lastDate = await redis.get(ip)
     console.log(`last date for ${ip}: `, lastDate)
     let diff = moment().diff(lastDate, 'days')
@@ -77,9 +77,9 @@ exports.createTalk = async (req, res, next) => {
 }
 // 获取客户端geo信息
 exports.getClientGeoInfo = async (req, res, next) => {
+  const env = func.getEnv();
   try {
-    // let ip = req.clientIp
-    let ip = randomIpv4()
+    let ip = env === 'development' ? randomIpv4() : req.clientIp
     let geo = geoip.lookup(ip)
     console.log('geo', geo)
     res.json({
@@ -94,10 +94,9 @@ exports.getClientGeoInfo = async (req, res, next) => {
 }
 // 检查24小时内是否已经发过talk
 exports.checkTalked = async (req, res, next) => {
+  const env = func.getEnv();
   try {
-    // let ip = req.clientIp
-    let ip = randomIpv4()
-    // let ip = '127.0.0.3'
+    let ip = env === 'development' ? randomIpv4() : req.clientIp
     let lastDate = await redis.get(ip)
     let diff = moment().diff(lastDate, 'days')
     console.log('checkTalked diff days: ', diff)
