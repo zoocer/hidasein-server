@@ -7,12 +7,15 @@
 var app = require('../app');
 var debug = require('debug')('hidasein-server:server');
 var http = require('http');
+const func = require('../utils/func')
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+const env = func.getEnv();
+// var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(env === 'development' ? 3001 : 3000);
 app.set('port', port);
 
 /**

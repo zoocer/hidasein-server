@@ -13,6 +13,7 @@ const url = 'mongodb://localhost:27017/'
 const dbName = 'hidasein'
 
 const Talk = require('./models/Talk')
+const func = require('./utils/func')
 
 mongoose.connect(url + dbName, { useNewUrlParser: true })
 var db = mongoose.connection
@@ -61,7 +62,10 @@ app.use((err, req, res, next) => {
   }
 })
 
-const port = process.argv[2] || 4141
+const env = func.getEnv()
+console.log('=== app start ===', env);
+// const port = process.argv[2] || 4141
+const port = env === 'development' ? 4142 : 4141
 app.listen(port, () => {
   console.log('Hidasein server is listenning on port: ', port)
 })
