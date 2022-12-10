@@ -10,7 +10,7 @@
   "dependencies": {
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
-    "express": "~4.16.0",
+    "express": "~4.17.3",
     "geoip-country": "^3.2.1",
     "ioredis": "^4.9.3",
     "lodash": "^4.17.11",
